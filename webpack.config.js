@@ -14,9 +14,9 @@ module.exports = {
     plugins: [new HtmlWebpackPlugin({
         template: './src/index.html'
     })],
-    devServer: {
-        historyApiFallback: true
-    },
+    // devServer: {
+    //     historyApiFallback: true
+    // },
     externals: {
         // global app config object
         config: JSON.stringify({

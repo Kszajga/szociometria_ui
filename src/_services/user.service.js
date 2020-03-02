@@ -1,5 +1,5 @@
 // import config from './../../webpack.config';
-import { authHeader } from '../_helpers';
+import { authHeader } from '../_helpers/auth-headers';
 
 export const config = {
     apiUrl: 'http://localhost:4000'
@@ -18,10 +18,11 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`${config.apiUrl}/admin/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            console.log("TCL: login -> user", user)
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
 
             return user;
@@ -39,7 +40,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/admin`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
@@ -56,6 +57,7 @@ function handleResponse(response) {
             return Promise.reject(error);
         }
 
+        console.log("TCL: handleResponse -> data", data)
         return data;
     });
 }
