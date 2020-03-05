@@ -1,6 +1,6 @@
 // import config from './../../webpack.config';
 import { authHeader } from '../_helpers/auth-headers';
-
+import { history } from './../_helpers/history';
 export const config = {
     apiUrl: 'http://localhost:4000'
 };
@@ -24,7 +24,6 @@ function login(username, password) {
             console.log("TCL: login -> user", user)
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
-
             return user;
         });
 }
@@ -50,10 +49,10 @@ function handleResponse(response) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 logout();
-                //location.reload(true);
+                location.reload(true);
             }
 
-            const error = (data && data.message) || response.statusText;
+            const error = (data && data.errors) || response.statusText;
             return Promise.reject(error);
         }
 

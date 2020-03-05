@@ -1,6 +1,7 @@
 import { userConstants } from './../constants/user.constants';
 
 export default function users(state = {}, action) {
+    console.log("users -> action", action)
     switch (action.type) {
         case userConstants.GETALL_REQUEST:
             return {

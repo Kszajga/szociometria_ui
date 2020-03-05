@@ -18,10 +18,12 @@ function login(username, password) {
                 user => {
                     dispatch(success(user));
                     history.push('/');
+                    location.reload(true);
                 },
-                error => {
-                    dispatch(failure(error));
-                    dispatch(alertActions.error(error));
+                errors => {
+                    console.log("login -> error", errors)
+                    dispatch(failure(errors));
+                    dispatch(alertActions.error(errors));
                 }
             );
     };

@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 
 import { userActions } from './../_actions/user.actions';
 
+// import Button from 'react-bootstrap/Button';
+
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
         // reset login status
-        this.props.dispatch(userActions.logout());
+        // this.props.dispatch(userActions.logout());
 
         this.state = {
             username: '',

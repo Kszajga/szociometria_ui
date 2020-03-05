@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Route from 'react-router-dom/Route';
 import { connect } from 'react-redux';
-
 import { history } from './_helpers/history';
 import { alertActions } from './_actions/alert.actions';
 import { PrivateRoute } from './_components/PrivateRoutes';
@@ -22,21 +22,21 @@ class App extends React.Component {
     render() {
         const { alert } = this.props;
         return (
-            <div className="jumbotron">
-                <div className="container">
-                    <div className="col-sm-8 col-sm-offset-2">
-                        {alert.message &&
-                            <div className={`alert ${alert.type}`}>{alert.message}</div>
-                        }
-                        <Router history={history}>
-                            <div>
-                                <PrivateRoute exact path="/" component={HomePage} />
-                                <Route path="/login" component={LoginPage} />
-                            </div>
-                        </Router>
-                    </div>
+            // <div className="jumbotron">
+            //     <div className="container">
+            //         <div className="col-sm-8 col-sm-offset-2">
+            //             {alert.errors &&
+            //                 alert.errors.map((error, index) => <div key={index} className={`alert ${alert.type}`}>{error.message}</div>)
+            //             }
+            <BrowserRouter history={history}>
+                <div>
+                    <PrivateRoute exact path="/" component={HomePage} />
+                    <Route path="/login" component={LoginPage} />
                 </div>
-            </div>
+            </BrowserRouter>
+            //         </div>
+            //     </div>
+            // </div>
         );
     }
 }
