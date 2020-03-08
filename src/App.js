@@ -1,12 +1,14 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import Route from 'react-router-dom/Route';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { history } from './_helpers/history';
 import { alertActions } from './_actions/alert.actions';
 import { PrivateRoute } from './_components/PrivateRoutes';
 import { HomePage } from './HomePage/HomePage';
 import { LoginPage } from './LoginPage/LoginPage';
+import { NavBar } from './_components/NavBar';
+import { QuestionnairePage } from './_pages/QuestionnairePage/QuestionnairePage';
+import { StudentPage } from './_pages/StudentPage/StudentPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -18,9 +20,14 @@ class App extends React.Component {
             dispatch(alertActions.clear());
         });
     }
-
+    
     render() {
-        const { alert } = this.props;
+        const { alert, users } = this.props;
+        const loggedInUser = localStorage.getItem('user');
+        let displayNavBar;
+        if (loggedInUser) {
+            displayNavBar = <NavBar />;
+        }
         return (
             // <div className="jumbotron">
             //     <div className="container">
@@ -28,12 +35,15 @@ class App extends React.Component {
             //             {alert.errors &&
             //                 alert.errors.map((error, index) => <div key={index} className={`alert ${alert.type}`}>{error.message}</div>)
             //             }
-            <BrowserRouter history={history}>
-                <div>
+            <div>
+                {displayNavBar}
+                <BrowserRouter history={history}>
                     <PrivateRoute exact path="/" component={HomePage} />
+                    <PrivateRoute exact path="/questionnaires" component={QuestionnairePage} />
+                    <PrivateRoute exact path="/students" component={StudentPage} />
                     <Route path="/login" component={LoginPage} />
-                </div>
-            </BrowserRouter>
+                </BrowserRouter>
+            </div>
             //         </div>
             //     </div>
             // </div>
@@ -42,6 +52,7 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
+    console.log("mapStateToProps -> state", state)
     const { alert } = state;
     return {
         alert
