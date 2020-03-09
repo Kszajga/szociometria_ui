@@ -28,18 +28,27 @@ function getAllByUser() {
     let user = JSON.parse(localStorage.getItem('user'));
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         headers: authHeader(),
         body: JSON.stringify({ user_id: user.id })
     };
 
     return fetch(`${config.apiUrl}/student/getAllByUserId`, requestOptions)
+        .then((response) => response.json())
         .then(handleResponse)
-        .then(students => {
-            console.log(students);
-            return students;
+        .then(responseData => {
+            console.log(responseData);
+            // let jsonparsed = JSON.parse(responseData);
+            // console.log("getAllByUser -> jsonparsed", jsonparsed)
+            return responseData;
         });
 }
+
+// .then(handleResponse)
+// .then(students => {
+//     console.log(students);
+//     return students;
+// });
+// }
 
 function edit() {
 

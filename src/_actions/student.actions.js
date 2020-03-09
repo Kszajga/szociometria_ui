@@ -9,11 +9,12 @@ export const studentActions = {
 
 function getAllByUser() {
     return dispatch => {
-        dispatch(request({}));
+        dispatch(request());
 
         studentService.getAllByUser()
             .then(
                 students => {
+                    console.log("getAllByUser -> students", students)
                     dispatch(success(students));
                 },
                 errors => {
