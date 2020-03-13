@@ -18,6 +18,7 @@ function getAllByUser() {
                     dispatch(success(students));
                 },
                 errors => {
+                    console.log("getAllByUser -> errors", errors)
                     dispatch(failure(errors));
                     dispatch(alertActions.error(errors));
                 }

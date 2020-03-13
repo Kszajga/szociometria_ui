@@ -33,8 +33,8 @@ function getAllByUser() {
     };
 
     return fetch(`${config.apiUrl}/student/getAllByUserId`, requestOptions)
-        .then((response) => response.json())
         .then(handleResponse)
+        .then((response) => response.json())
         .then(responseData => {
             console.log(responseData);
             // let jsonparsed = JSON.parse(responseData);
